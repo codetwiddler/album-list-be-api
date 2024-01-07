@@ -8,9 +8,9 @@ namespace album_list_business.Handler
 {
     public class GetAlbumsHandler : IRequestHandler<GetAlbumsQuery, Result<List<AlbumResponse>>>
     {
-        private readonly AlbumRepository _albumRepository;
+        private readonly IAlbumRepository _albumRepository;
 
-        public GetAlbumsHandler(AlbumRepository albumRepository)
+        public GetAlbumsHandler(IAlbumRepository albumRepository)
         {
             _albumRepository = albumRepository;
         }

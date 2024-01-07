@@ -2,13 +2,13 @@
 
 namespace album_list_ef
 {
-    public class AlbumRepository
+    public class AlbumRepository : IAlbumRepository
     {
         private readonly AlbumDbContext _dbContext;
 
-        public AlbumRepository(AlbumDbContext dbContext)
+        public AlbumRepository()
         {
-            _dbContext = dbContext;
+            _dbContext = new AlbumDbContext();
         }
 
         public void AddAlbum(Album album)

@@ -1,7 +1,5 @@
-using album_list_business.Handler;
 using album_list_business.Query;
-using Microsoft.AspNetCore.Hosting;
-using System.Reflection;
+using album_list_ef;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +9,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAlbumQuery).Assembly));
+
 
 var app = builder.Build();
 
