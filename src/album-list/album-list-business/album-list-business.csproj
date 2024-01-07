@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Command\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\album-list-ef\album-list-ef.csproj" />
   </ItemGroup>
 

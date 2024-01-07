@@ -1,3 +1,8 @@
+using album_list_business.Handler;
+using album_list_business.Query;
+using Microsoft.AspNetCore.Hosting;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAlbumQuery).Assembly));
 
 var app = builder.Build();
 
@@ -18,7 +24,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseAuthorization(); 
 
 app.MapControllers();
 

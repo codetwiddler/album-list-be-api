@@ -11,9 +11,9 @@ namespace album_list_api.Controllers
     public class AlbumController : ControllerBase
     {
         private readonly ILogger<AlbumController> _logger;
+
         private IMediator _mediator;
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
-
         public AlbumController(ILogger<AlbumController> logger)
         {
             _logger = logger;
@@ -42,7 +42,7 @@ namespace album_list_api.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var albumQuery = new GetAlbumQuery(id);
-            var result = await Mediator.Send(albumQuery);
+            var result = await _mediator.Send(albumQuery);
             if (result.Success)
             {
                 return Ok(result.Data);
