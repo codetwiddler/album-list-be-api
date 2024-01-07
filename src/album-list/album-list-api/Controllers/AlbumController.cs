@@ -25,7 +25,12 @@ namespace album_list_api.Controllers
         [HttpGet("GetAllAlbums")]
         public async Task<IActionResult> Get()
         {
-            
+            var albumsQuery = new GetAlbumsQuery();
+            var result = await Mediator.Send(albumsQuery);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
 
             return NotFound();
         }
