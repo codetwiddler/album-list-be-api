@@ -1,6 +1,6 @@
+using album_list_business.Command;
 using album_list_business.DTO;
 using album_list_business.Query;
-using album_list_model;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,19 +10,19 @@ namespace album_list_api.Controllers
     [Route("[controller]")]
     public class AlbumController : ControllerBase
     {
-        private readonly ILogger<AlbumController> _logger;
-
         private IMediator _mediator;
-        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>(); //DI, this can be moved to either base class or to the startup section
+        
+        private readonly ILogger<AlbumController> _logger; //Logger implementation for future
         public AlbumController(ILogger<AlbumController> logger)
         {
             _logger = logger;
         }
 
         [Produces("application/json")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlbumResponse))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<AlbumResponse>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        [HttpGet("GetAllAlbums")]
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var albumsQuery = new GetAlbumsQuery();
@@ -38,11 +38,11 @@ namespace album_list_api.Controllers
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlbumResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        [HttpGet("GetAlbumById")]
+        [HttpGet("Id")]
         public async Task<IActionResult> GetById(int id)
         {
             var albumQuery = new GetAlbumQuery(id);
-            var result = await _mediator.Send(albumQuery);
+            var result = await Mediator.Send(albumQuery);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -51,11 +51,54 @@ namespace album_list_api.Controllers
             return NotFound();
         }
 
-        [HttpPost(Name = "SaveAlbum")]
-        public IEnumerable<Album> Post(int Id)
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(AlbumResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [HttpPost]
+        public async Task<IActionResult> Post(string title, string artist, int releaseYear, string genre)
+        {
+            var cmd = new CreateAlbumCommand(title, artist, releaseYear, genre);
+            var result = await Mediator.Send(cmd);
+            if (result.Success)
+            {
+                return StatusCode(201, result.Data);
+            }
+
+            return BadRequest(result.Data);
+        }
+
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlbumResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [HttpPatch]
+        public async Task<IActionResult> Update(int id, string title, string artist, int releaseYear, string genre)
         {
 
-            return null;
+            var cmd = new UpdateAlbumCommand(id, title, artist, releaseYear, genre);
+            var result = await Mediator.Send(cmd);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest(result.Data);
+        }
+
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(bool))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var albumCommand = new DeleteAlbumCommand(id);
+            var result = await Mediator.Send(albumCommand);
+            if (result.Success)
+            {
+                return NoContent();
+            }
+
+            return NotFound(result.Data);  
         }
     }
 }

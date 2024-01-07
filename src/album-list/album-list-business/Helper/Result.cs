@@ -1,6 +1,6 @@
 ﻿namespace album_list_business.Helper
 {
-    public class Result<T> where T : class
+    public class Result<T>
     {
         public bool Success { get; }
         public T Data { get; }
