@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\album-list-business\album-list-business.csproj" />
     <ProjectReference Include="..\album-list-model\album-list-model.csproj" />
   </ItemGroup>
 

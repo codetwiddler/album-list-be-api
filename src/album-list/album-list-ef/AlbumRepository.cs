@@ -2,8 +2,6 @@
 
 namespace album_list_ef
 {
-
-
     public class AlbumRepository
     {
         private readonly AlbumDbContext _dbContext;

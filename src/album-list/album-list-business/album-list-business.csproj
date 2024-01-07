@@ -2,17 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>album_list_ef</RootNamespace>
+    <RootNamespace>album_list_business</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.25" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\album-list-model\album-list-model.csproj" />
+    <Folder Include="Command\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\album-list-ef\album-list-ef.csproj" />
   </ItemGroup>
 
 </Project>
