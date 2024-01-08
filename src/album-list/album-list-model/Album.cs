@@ -25,7 +25,7 @@ namespace album_list_model
         public string Genre { get; set; }
 
         [Column(TypeName = "SMALLINT")]
-        public int Rating { get; set; }
+        public int? Rating { get; set; }
     }
 }
        
