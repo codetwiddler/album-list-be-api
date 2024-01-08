@@ -6,9 +6,9 @@ namespace album_list_ef
     {
         private readonly AlbumDbContext _dbContext;
 
-        public AlbumRepository()
+        public AlbumRepository(AlbumDbContext context)
         {
-            _dbContext = new AlbumDbContext();
+            _dbContext = context;
         }
 
         public void AddAlbum(Album album)

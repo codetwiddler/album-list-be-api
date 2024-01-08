@@ -7,9 +7,16 @@ namespace album_list_ef
     {
         public DbSet<Album> Albums { get; set; }
 
+        public AlbumDbContext(DbContextOptions<AlbumDbContext> options) : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseInMemoryDatabase("AlbumDatabase");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseInMemoryDatabase("AlbumDatabase");
+            }
         }
     }
 }
