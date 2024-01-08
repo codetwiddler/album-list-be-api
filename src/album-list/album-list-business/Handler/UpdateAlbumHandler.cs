@@ -26,6 +26,7 @@ namespace album_list_business.Handler
                 Artist = request.Artist,
                 ReleaseYear = request.ReleaseYear,
                 Genre = request.Genre,
+                Rating = request.Rating
             };
 
             _albumRepository.UpdateAlbum(album);            

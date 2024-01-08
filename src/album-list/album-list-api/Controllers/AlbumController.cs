@@ -55,9 +55,9 @@ namespace album_list_api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(AlbumResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [HttpPost]
-        public async Task<IActionResult> Post(string title, string artist, int releaseYear, string genre)
+        public async Task<IActionResult> Post(string title, string artist, int releaseYear, string genre, int rating)
         {
-            var cmd = new CreateAlbumCommand(title, artist, releaseYear, genre);
+            var cmd = new CreateAlbumCommand(title, artist, releaseYear, genre, rating);
             var result = await Mediator.Send(cmd);
             if (result.Success)
             {
@@ -71,10 +71,10 @@ namespace album_list_api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlbumResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [HttpPatch]
-        public async Task<IActionResult> Update(int id, string title, string artist, int releaseYear, string genre)
+        public async Task<IActionResult> Update(int id, string title, string artist, int releaseYear, string genre, int rating)
         {
 
-            var cmd = new UpdateAlbumCommand(id, title, artist, releaseYear, genre);
+            var cmd = new UpdateAlbumCommand(id, title, artist, releaseYear, genre, rating);
             var result = await Mediator.Send(cmd);
             if (result.Success)
             {

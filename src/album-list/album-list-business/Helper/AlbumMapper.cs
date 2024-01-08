@@ -13,8 +13,8 @@ namespace album_list_business.Helper
                 Title = album.Title,
                 Artist = album.Artist,
                 ReleaseYear = album.ReleaseYear,
-                Genre = album.Genre
-
+                Genre = album.Genre,
+                Rating = album.Rating,
             };
 
             return result;

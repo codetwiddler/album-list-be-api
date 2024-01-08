@@ -23,6 +23,9 @@ namespace album_list_model
         [Column(TypeName = "VARCHAR")]
         [StringLength(50)]
         public string Genre { get; set; }
+
+        [Column(TypeName = "SMALLINT")]
+        public int Rating { get; set; }
     }
 }
        
