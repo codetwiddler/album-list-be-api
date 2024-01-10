@@ -13,7 +13,6 @@ namespace album_list_business.DTO
         //or, if we're establishing another barrier or separation of concerns between
         //external interfaces and internal logic. It could also provide flexibility
         //with more complex data types
-        public int    Id { get; set; }
         public string Title { get; set; }
         public string Artist { get; set; }
         public int    ReleaseYear { get; set; }
