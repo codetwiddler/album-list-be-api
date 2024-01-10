@@ -6,19 +6,20 @@ namespace album_list_business.Command
 {
     public class CreateAlbumCommand : IRequest<Result<AlbumResponse>>
     {
-        public string Title { get; }
-        public string Artist { get; }
-        public int    ReleaseYear { get; }
-        public string Genre { get; }
-        public int    Rating { get; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Artist { get; set; }
+        public int ReleaseYear { get; set; }
+        public string Genre { get; set; }
+        public int Rating { get; set; }
 
-        public CreateAlbumCommand(CreateAlbumDto createAlbumDto)
+        public CreateAlbumCommand(string title, string artist, int releaseYear, string genre, int rating)
         {
-            Title       = createAlbumDto.Title;
-            Artist      = createAlbumDto.Artist;
-            ReleaseYear = createAlbumDto.ReleaseYear;
-            Genre       = createAlbumDto.Genre;
-            Rating      = createAlbumDto.Rating;
+            Title = title;
+            Artist = artist;
+            ReleaseYear = releaseYear;
+            Genre = genre;
+            Rating = rating;
         }
     }
 }
