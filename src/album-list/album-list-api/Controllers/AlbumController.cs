@@ -37,8 +37,9 @@ namespace album_list_api.Controllers
 
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlbumResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        [HttpGet("Id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var albumQuery = new GetAlbumQuery(id);
@@ -55,9 +56,9 @@ namespace album_list_api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(AlbumResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [HttpPost]
-        public async Task<IActionResult> Post(string title, string artist, int releaseYear, string genre, int rating)
+        public async Task<IActionResult> Post(CreateAlbumDto createAlbumDto)
         {
-            var cmd = new CreateAlbumCommand(title, artist, releaseYear, genre, rating);
+            var cmd = new CreateAlbumCommand(createAlbumDto);
             var result = await Mediator.Send(cmd);
             if (result.Success)
             {
@@ -70,12 +71,13 @@ namespace album_list_api.Controllers
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AlbumResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        [HttpPatch]
-        public async Task<IActionResult> Update(int id, string title, string artist, int releaseYear, string genre, int rating)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Update(int id, UpdateAlbumDto updateAlbumDto)
         {
-
-            var cmd = new UpdateAlbumCommand(id, title, artist, releaseYear, genre, rating);
+            var cmd = new UpdateAlbumCommand(id, updateAlbumDto);
             var result = await Mediator.Send(cmd);
+
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -87,7 +89,7 @@ namespace album_list_api.Controllers
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(bool))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
 
