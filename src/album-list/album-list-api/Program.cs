@@ -13,6 +13,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AlbumDbContext>(options => options.UseInMemoryDatabase("AlbumDatabase"));
 builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAlbumQuery).Assembly));
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowSpecificOrigin", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000") // Allow only this origin
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -25,7 +33,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization(); 
+app.UseCors("AllowSpecificOrigin");
+
+app.UseAuthorization();
 
 app.MapControllers();
 
