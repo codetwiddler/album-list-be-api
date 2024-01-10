@@ -4,7 +4,7 @@ using MediatR;
 
 namespace album_list_business.Command
 {
-    public class DeleteAlbumCommand: IRequest<Result<string>>
+    public class DeleteAlbumCommand : IRequest<Result<string>>
     {
         public int Id { get; set; }
         public DeleteAlbumCommand(int id)
