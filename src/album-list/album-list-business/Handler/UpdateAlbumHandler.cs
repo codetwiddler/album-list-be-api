@@ -21,12 +21,12 @@ namespace album_list_business.Handler
 
             var album = new Album
             {
-                Id = request.Id,
-                Title = request.Title,
-                Artist = request.Artist,
+                Id          = request.Id,
+                Title       = request.Title,
+                Artist      = request.Artist,
                 ReleaseYear = request.ReleaseYear,
-                Genre = request.Genre,
-                Rating = request.Rating
+                Genre       = request.Genre,
+                Rating      = request.Rating
             };
 
             _albumRepository.UpdateAlbum(album);            

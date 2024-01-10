@@ -9,12 +9,12 @@ namespace album_list_business.Helper
         {
             var result = new AlbumResponse
             {
-                Id = album.Id,
-                Title = album.Title,
-                Artist = album.Artist,
+                Id          = album.Id,
+                Title       = album.Title,
+                Artist      = album.Artist,
                 ReleaseYear = album.ReleaseYear,
-                Genre = album.Genre,
-                Rating = album.Rating,
+                Genre       = album.Genre,
+                Rating      = album.Rating,
             };
 
             return result;
