@@ -5,15 +5,14 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AlbumDbContext>(options => options.UseInMemoryDatabase("AlbumDatabase"));
 builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAlbumQuery).Assembly));
-
 
 var app = builder.Build();
 
