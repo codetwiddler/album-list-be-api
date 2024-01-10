@@ -5,27 +5,28 @@ namespace album_list_model
 {
     public class Album
     {
+        //Setting default values in the model can ensure that the DB always receives
+        //a valid value, even if our DTOs don't provide one. This also centralizes
+        //control over default values, and aligns with business logic being the enforcer
+        //for rules and data integrity.
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Column(TypeName = "VARCHAR")]
-        [StringLength(50)]
-        public string Title { get; set; }
+        [Column(TypeName = "VARCHAR"), Required, StringLength(255)]
+        public string Title { get; set; } = Constants.STR_UNKNOWN_TITLE;
 
-        [Column(TypeName = "VARCHAR")]
-        [StringLength(100)]
-        public string Artist { get; set; }
+        [Column(TypeName = "VARCHAR"), Required, StringLength(255)]
+        public string Artist { get; set; } = Constants.STR_UNKNOWN_ARTIST;
 
         [Column(TypeName = "SMALLINT")]        
         public int ReleaseYear { get; set; }
 
-        [Column(TypeName = "VARCHAR")]
-        [StringLength(50)]
-        public string Genre { get; set; }
+        [Column(TypeName = "VARCHAR"), Required, StringLength(255)]
+        public string Genre { get; set; } = Constants.STR_UNSPECIFIED;
 
         [Column(TypeName = "SMALLINT")]
-        public int? Rating { get; set; }
+        public int Rating { get; set; }
     }
 }
        
