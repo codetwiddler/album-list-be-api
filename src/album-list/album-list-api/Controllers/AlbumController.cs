@@ -101,9 +101,8 @@ namespace album_list_api.Controllers
                 return NoContent();
                 
                 //if we were interested in returning something to the client in the way
-                //of details regarding what which was deleted, we might swap to using a
-                //200 and include some relevant data. 204 is efficient since nothing
-                //comes back.
+                //of details regarding that which was deleted, we might swap to using a
+                //200 and include some relevant data. 204 is efficient since nothing returns.
                 //return Ok($"Deleted Album Id: {id}");
             }
 
