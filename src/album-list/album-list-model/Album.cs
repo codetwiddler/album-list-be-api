@@ -19,13 +19,15 @@ namespace album_list_model
         [Column(TypeName = "VARCHAR"), Required, StringLength(255)]
         public string Artist { get; set; } = Constants.STR_UNKNOWN_ARTIST;
 
-        [Column(TypeName = "SMALLINT")]        
+        [Column(TypeName = "SMALLINT")]
+        [YearRange(1900)]
         public int ReleaseYear { get; set; }
 
         [Column(TypeName = "VARCHAR"), Required, StringLength(255)]
         public string Genre { get; set; } = Constants.STR_UNSPECIFIED;
 
         [Column(TypeName = "SMALLINT")]
+        [Range(0, 5, ErrorMessage = "Rating must be between 0 and 5.")]
         public int Rating { get; set; }
     }
 }
